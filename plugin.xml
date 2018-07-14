@@ -1,0 +1,12 @@
+<plugin name='wechat-api-client' version='0.1' grailsVersion='2.5 &gt; *'>
+  <author>Your name</author>
+  <title>Wechat Api Client Plugin</title>
+  <description>Brief summary/description of the plugin.
+</description>
+  <documentation>http://grails.org/plugin/wechat-api-client</documentation>
+  <type>WechatApiClientGrailsPlugin</type>
+  <resources>
+    <resource>WechatDefaultConfig</resource>
+    <resource>wechat.api.client.WechatService</resource>
+  </resources>
+</plugin>
