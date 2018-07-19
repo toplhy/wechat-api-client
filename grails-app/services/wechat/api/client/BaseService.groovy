@@ -1,17 +1,19 @@
 package wechat.api.client
 
+import grails.converters.JSON
 import grails.transaction.Transactional
 import grails.util.Environment
 import grails.util.Holders
 import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.springframework.web.client.RestTemplate
 import wechat.api.client.exception.WeChatException
-import wechat.api.client.utils.HttpClient
 
 @Transactional
 class BaseService {
 
     GrailsApplication application
+    RestTemplate restTemplate
 
     def access_token
     def token_expire_time
@@ -21,6 +23,13 @@ class BaseService {
             application = Holders.grailsApplication
         }
         application
+    }
+
+    def getRestTemplate() {
+        if(!restTemplate) {
+            restTemplate = new RestTemplate()
+        }
+        restTemplate
     }
 
     /**
@@ -92,7 +101,7 @@ class BaseService {
         if((token_expire_time?:0) < System.currentTimeMillis()) {
             def config = this.getWechatConfig()
             def url = config?.accessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())
-            def json =  HttpClient.postDataViaHttps(url, '', 'GET', null)
+            def json =  JSON.parse(getRestTemplate().getForObject(url, String.class))
             if(json.access_token){
                 token_expire_time =  System.currentTimeMillis()+7000*1000
                 access_token =  json.access_token
