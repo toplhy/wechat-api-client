@@ -2,6 +2,7 @@ package wechat.api.client.weixin
 
 import grails.converters.JSON
 import wechat.api.client.WechatService
+import wechat.api.client.enums.MsgType
 
 class WeixinController {
 
@@ -32,28 +33,29 @@ class WeixinController {
             map.MsgType = xml.MsgType.text()
             map.MsgId = xml.MsgId.text()
             def msg_type = xml.MsgType.text()
-            if(msg_type=="event"){
+            if(msg_type == MsgType.EVENT){
                 def event_type = xml.Event.text()
 
             }else {
-                if (msg_type == 'text') {
+                if (msg_type == MsgType.TEXT) {
                     map.Content = xml.Content.text()
-                } else if (msg_type == 'image') {
+
+                } else if (msg_type == MsgType.IMAGE) {
                     map.PicUrl = xml.PicUrl.text()
                     map.MediaId = xml.MediaId.text()
-                } else if(msg_type == 'voice') {
+                } else if(msg_type == MsgType.VOICE) {
                     map.MediaId = xml.MediaId.text()
                     map.Format = xml.Format.text()
                     map.Recognition = xml.Recognition.text()
-                } else if(msg_type == 'video' || msg_type == 'shortvideo') {
+                } else if(msg_type == MsgType.VIDEO || msg_type == MsgType.SHORTVIDEO) {
                     map.MediaId = xml.MediaId.text()
                     map.ThumbMediaId = xml.ThumbMediaId.text()
-                } else if (msg_type == 'location') {
+                } else if (msg_type == MsgType.LOCATION) {
                     map.Scale = xml.Scale.text()
                     map.Label = xml.Label.text()
                     map.Location_Y = xml.Location_Y.text()
                     map.Location_X = xml.Location_X.text()
-                } else if (msg_type == 'link') {
+                } else if (msg_type == MsgType.LINK) {
                     map.Title = xml.Title.text()
                     map.Description = xml.Description.text()
                     map.Url = xml.Url.text()
