@@ -1,9 +1,6 @@
-package wechat.api.client.enums;
+package wechat.api.client.enums
 
-/**
- * 事件类型
- */
-public enum EventType {
+enum EventType {
 
     SUBSCRIBE("subscribe"), // 关注事件
     UNSUBSCRIBE("unsubscribe"), // 取消关注事件
@@ -18,16 +15,17 @@ public enum EventType {
     PICWEIXIN("pic_weixin"), // 弹出微信相册发图器的事件推送
     LOCATIONSELECT("location_select"), // 弹出地理位置选择器的事件推送
     TEMPLATESENDJOBFINISH("TEMPLATESENDJOBFINISH"), // 模板消息发送任务完成
-    MASSSENDJOBFINISH("MASSSENDJOBFINISH"); // 群发消息发送完成
+    MASSSENDJOBFINISH("MASSSENDJOBFINISH") // 群发消息发送完成
 
-    String value;
+    String value
 
     EventType(String value) {
-        this.value = value;
+        this.value = value
     }
 
     @Override
-    public String toString() {
-        return this.value;
+    String toString() {
+        return this.value
     }
+
 }

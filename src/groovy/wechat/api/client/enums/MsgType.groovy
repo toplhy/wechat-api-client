@@ -1,9 +1,6 @@
-package wechat.api.client.enums;
+package wechat.api.client.enums
 
-/**
- * 消息类型
- */
-public enum  MsgType {
+enum MsgType {
 
     EVENT("event"), // 事件消息
     TEXT("text"), // 文本消息
@@ -12,16 +9,16 @@ public enum  MsgType {
     VIDEO("video"), // 视频消息
     SHORTVIDEO("shortvideo"), // 小视频消息
     LOCATION("location"), // 位置消息
-    LINK("link"); // 链接消息
+    LINK("link") // 链接消息
 
-    String value;
+    String value
 
     MsgType(String value) {
-        this.value = value;
+        this.value = value
     }
 
     @Override
-    public String toString() {
-        return this.value;
+    String toString() {
+        return this.value
     }
 }

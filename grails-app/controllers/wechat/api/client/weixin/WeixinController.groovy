@@ -3,10 +3,20 @@ package wechat.api.client.weixin
 import grails.converters.JSON
 import wechat.api.client.WechatService
 import wechat.api.client.enums.MsgType
+import wechat.api.client.interfaces.MessageInterface
+import wechat.api.client.proxy.FacadeProxy
 
 class WeixinController {
 
     WechatService wechatService
+    MessageInterface messageInterface
+
+    def getMessageInterface() {
+        if(!messageInterface) {
+            messageInterface = FacadeProxy.newMapperProxy(MessageInterface.class, "wechat.api.client.interfaces.MessageInterfaceImpl")
+        }
+        messageInterface
+    }
 
     def index() {
         def config = wechatService.getWechatConfig()
@@ -39,7 +49,9 @@ class WeixinController {
             }else {
                 if (msg_type == MsgType.TEXT) {
                     map.Content = xml.Content.text()
-
+                    messageInterface.beforeHandleText(map)
+                    messageInterface.handleText(map)
+                    messageInterface.afterHandleText(map)
                 } else if (msg_type == MsgType.IMAGE) {
                     map.PicUrl = xml.PicUrl.text()
                     map.MediaId = xml.MediaId.text()
