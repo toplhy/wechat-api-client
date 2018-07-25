@@ -2,7 +2,9 @@ package wechat.api.client.weixin
 
 import grails.converters.JSON
 import wechat.api.client.WechatService
+import wechat.api.client.enums.EventType
 import wechat.api.client.enums.MsgType
+import wechat.api.client.interfaces.EventInterface
 import wechat.api.client.interfaces.MessageInterface
 import wechat.api.client.proxy.FacadeProxy
 
@@ -10,12 +12,20 @@ class WeixinController {
 
     WechatService wechatService
     MessageInterface messageInterface
+    EventInterface eventInterface
 
     def getMessageInterface() {
         if(!messageInterface) {
-            messageInterface = FacadeProxy.newMapperProxy(MessageInterface.class, "wechat.api.client.interfaces.MessageInterfaceImpl")
+            messageInterface = FacadeProxy.newMapperProxy(MessageInterface.class, "wechat.api.client.impl.MessageInterfaceImpl")
         }
         messageInterface
+    }
+
+    def getEventInterface() {
+        if(!eventInterface) {
+            eventInterface =  FacadeProxy.newMapperProxy(MessageInterface.class, "wechat.api.client.impl.EventInterfaceImpl")
+        }
+        eventInterface
     }
 
     def index() {
@@ -45,7 +55,35 @@ class WeixinController {
             def msg_type = xml.MsgType.text()
             if(msg_type == MsgType.EVENT){
                 def event_type = xml.Event.text()
+                if(event_type == EventType.SUBSCRIBE){
 
+                } else if(event_type == EventType.UNSUBSCRIBE) {
+
+                } else if(event_type == EventType.SCAN) {
+
+                } else if(event_type == EventType.LOCATION) {
+
+                } else if(event_type == EventType.CLICK){
+
+                } else if(event_type == EventType.VIEW){
+
+                } else if(event_type == EventType.SCANCODEPUSH){
+
+                } else if(event_type == EventType.SCANCODEWAITMSG){
+
+                } else if(event_type == EventType.PICSYSPHOTO){
+
+                } else if(event_type == EventType.PICPHOTOORALBUM){
+
+                } else if(event_type == EventType.PICWEIXIN){
+
+                } else if(event_type == EventType.LOCATIONSELECT){
+
+                } else if(event_type == EventType.TEMPLATESENDJOBFINISH){
+
+                } else if(event_type == EventType.MASSSENDJOBFINISH){
+
+                }
             }else {
                 if (msg_type == MsgType.TEXT) {
                     map.Content = xml.Content.text()
