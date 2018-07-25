@@ -7,7 +7,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleText(Map message)
 
-    Map handleText(Map message)
+    Boolean handleText(Map message)
 
     Boolean afterHandleText(Map message)
 
@@ -16,7 +16,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleImage(Map message)
 
-    Map handleImage(Map message)
+    Boolean handleImage(Map message)
 
     Boolean afterHandleImage(Map message)
 
@@ -25,7 +25,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleVoice(Map message)
 
-    Map handleVoice(Map message)
+    Boolean handleVoice(Map message)
 
     Boolean afterHandleVoice(Map message)
 
@@ -34,7 +34,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleVideo(Map message)
 
-    Map handleVideo(Map message)
+    Boolean handleVideo(Map message)
 
     Boolean afterHandleVideo(Map message)
 
@@ -43,7 +43,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleLocation(Map message)
 
-    Map handleLocation(Map message)
+    Boolean handleLocation(Map message)
 
     Boolean afterHandleLocation(Map message)
 
@@ -52,7 +52,7 @@ interface MessageInterface {
      */
     Boolean beforeHandleLink(Map message)
 
-    Map handleLink(Map message)
+    Boolean handleLink(Map message)
 
     Boolean afterHandleLink(Map message)
 }

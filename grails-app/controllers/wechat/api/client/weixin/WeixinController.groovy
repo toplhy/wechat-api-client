@@ -1,6 +1,5 @@
 package wechat.api.client.weixin
 
-import grails.converters.JSON
 import wechat.api.client.WechatService
 import wechat.api.client.enums.EventType
 import wechat.api.client.enums.MsgType
@@ -51,66 +50,120 @@ class WeixinController {
             map.FromUserName = xml.FromUserName.text()
             map.CreateTime = xml.CreateTime.text()
             map.MsgType = xml.MsgType.text()
-            map.MsgId = xml.MsgId.text()
             def msg_type = xml.MsgType.text()
             if(msg_type == MsgType.EVENT){
                 def event_type = xml.Event.text()
-                if(event_type == EventType.SUBSCRIBE){
+                map.event = event_type
+                if(event_type == EventType.SUBSCRIBE.value){
+                    if(xml?.Ticket?.text()) {
+                        map.EventKey = xml?.EventKey?.text()
+                        map.Ticket = xml?.Ticket?.text()
+                    }
+                } else if(event_type == EventType.UNSUBSCRIBE.value) {
 
-                } else if(event_type == EventType.UNSUBSCRIBE) {
-
-                } else if(event_type == EventType.SCAN) {
-
-                } else if(event_type == EventType.LOCATION) {
-
-                } else if(event_type == EventType.CLICK){
-
-                } else if(event_type == EventType.VIEW){
-
-                } else if(event_type == EventType.SCANCODEPUSH){
-
-                } else if(event_type == EventType.SCANCODEWAITMSG){
-
-                } else if(event_type == EventType.PICSYSPHOTO){
-
-                } else if(event_type == EventType.PICPHOTOORALBUM){
-
-                } else if(event_type == EventType.PICWEIXIN){
-
-                } else if(event_type == EventType.LOCATIONSELECT){
-
-                } else if(event_type == EventType.TEMPLATESENDJOBFINISH){
-
-                } else if(event_type == EventType.MASSSENDJOBFINISH){
+                } else if(event_type == EventType.SCAN.value) {
+                    map.EventKey = xml?.EventKey?.text()
+                    map.Ticket = xml?.Ticket?.text()
+                } else if(event_type == EventType.LOCATION.value) {
+                    map.Latitude = xml.Latitude.text()
+                    map.Longitude = xml.Longitude.text()
+                    map.Precision = xml.Precision.text()
+                } else if(event_type == EventType.CLICK.value){
+                    map.EventKey = xml?.EventKey?.text()
+                } else if(event_type == EventType.VIEW.value){
+                    map.EventKey = xml?.EventKey?.text()
+                } else if(event_type == EventType.SCANCODEPUSH.value){
+                    map.EventKey = xml?.EventKey?.text()
+                    map.ScanCodeInfo = xml.ScanCodeInfo.text()
+                    map.ScanType = xml.ScanType.text()
+                    map.ScanResult = xml.ScanResult.text()
+                } else if(event_type == EventType.SCANCODEWAITMSG.value){
+                    map.EventKey = xml?.EventKey?.text()
+                    map.ScanCodeInfo = xml.ScanCodeInfo.text()
+                    map.ScanType = xml.ScanType.text()
+                    map.ScanResult = xml.ScanResult.text()
+                } else if(event_type == EventType.PICSYSPHOTO.value || event_type == EventType.PICPHOTOORALBUM.value || event_type == EventType.PICWEIXIN.value){
+                    map.EventKey = xml?.EventKey?.text()
+                    map.SendPicsInfo = xml.SendPicsInfo.text()
+                    map.Count = xml.Count.text()
+                    map.PicList = xml.PicList.text()
+                    map.PicMd5Sum = map.PicMd5Sum.text()
+                } else if(event_type == EventType.LOCATIONSELECT.value){
+                    map.EventKey = xml?.EventKey?.text()
+                    map.SendLocationInfo = xml.SendLocationInfo.text()
+                    map.Location_X = xml.Location_X.text()
+                    map.Location_X = xml.Location_X.text()
+                    map.Scale = xml.Scale.text()
+                    map.Label = xml.Label.text()
+                    map.Poiname = xml.Poiname.text()
+                } else if(event_type == EventType.TEMPLATESENDJOBFINISH.value){
+                    map.MsgID = xml.MsgID.text()
+                    map.Status = xml.Status.text()
+                } else if(event_type == EventType.MASSSENDJOBFINISH.value){
+                    map.MsgID = xml.MsgID.text()
+                    map.Status = xml.Status.text()
+                    map.TotalCount = xml.TotalCount.text()
+                    map.FilterCount = xml.FilterCount.text()
+                    map.SentCount = xml.SentCount.text()
+                    map.ErrorCount = xml.ErrorCount.text()
+                    map.ResultList = xml.ResultList.text()
+                    map.ArticleIdx = xml.ArticleIdx.text()
+                    map.UserDeclareState = xml.UserDeclareState.text()
+                    map.AuditState = xml.AuditState.text()
+                    map.OriginalArticleUrl = xml.OriginalArticleUrl.text()
+                    map.OriginalArticleType = xml.OriginalArticleType.text()
+                    map.CanReprint = xml.CanReprint.text()
+                    map.NeedReplaceContent = xml.NeedReplaceContent.text()
+                    map.NeedShowReprintSource = xml.NeedShowReprintSource.text()
+                    map.CheckState = xml.CheckState.text()
+                    map.CheckState = xml.CheckState.text()
+                } else {
 
                 }
             }else {
-                if (msg_type == MsgType.TEXT) {
+                map.MsgId = xml.MsgId.text()
+                if (msg_type == MsgType.TEXT.value) {
                     map.Content = xml.Content.text()
-                    messageInterface.beforeHandleText(map)
-                    messageInterface.handleText(map)
-                    messageInterface.afterHandleText(map)
-                } else if (msg_type == MsgType.IMAGE) {
+                    getMessageInterface().beforeHandleText(map)
+                    getMessageInterface().handleText(map)
+                    getMessageInterface().afterHandleText(map)
+                } else if (msg_type == MsgType.IMAGE.value) {
                     map.PicUrl = xml.PicUrl.text()
                     map.MediaId = xml.MediaId.text()
-                } else if(msg_type == MsgType.VOICE) {
+                    getMessageInterface().beforeHandleImage(map)
+                    getMessageInterface().handleImage(map)
+                    getMessageInterface().afterHandleImage(map)
+                } else if(msg_type == MsgType.VOICE.value) {
                     map.MediaId = xml.MediaId.text()
                     map.Format = xml.Format.text()
                     map.Recognition = xml.Recognition.text()
-                } else if(msg_type == MsgType.VIDEO || msg_type == MsgType.SHORTVIDEO) {
+                    getMessageInterface().beforeHandleVoice(map)
+                    getMessageInterface().handleVoice(map)
+                    getMessageInterface().afterHandleVoice(map)
+                } else if(msg_type == MsgType.VIDEO.value || msg_type == MsgType.SHORTVIDEO.value) {
                     map.MediaId = xml.MediaId.text()
                     map.ThumbMediaId = xml.ThumbMediaId.text()
-                } else if (msg_type == MsgType.LOCATION) {
+                    getMessageInterface().beforeHandleVideo(map)
+                    getMessageInterface().handleVideo(map)
+                    getMessageInterface().afterHandleVideo(map)
+                } else if (msg_type == MsgType.LOCATION.value) {
                     map.Scale = xml.Scale.text()
                     map.Label = xml.Label.text()
                     map.Location_Y = xml.Location_Y.text()
                     map.Location_X = xml.Location_X.text()
-                } else if (msg_type == MsgType.LINK) {
+                    getMessageInterface().beforeHandleLocation(map)
+                    getMessageInterface().handleLocation(map)
+                    getMessageInterface().afterHandleLocation(map)
+                } else if (msg_type == MsgType.LINK.value) {
                     map.Title = xml.Title.text()
                     map.Description = xml.Description.text()
                     map.Url = xml.Url.text()
+                    getMessageInterface().beforeHandleLink(map)
+                    getMessageInterface().handleLink(map)
+                    getMessageInterface().afterHandleLink(map)
+                } else {
+
                 }
-                println map as JSON
                 render "success"
             }
         }
