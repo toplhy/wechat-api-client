@@ -1,58 +1,27 @@
 package wechat.api.client.interfaces
 
+/**
+ * 被动回复消息接口
+ */
 interface MessageInterface {
 
     /**
-     * 文本消息
+     * 回复之前的处理方法
+     * @param message
+     * @return 要回复返回true， 不回复返回false
      */
-    Boolean beforeHandleText(Map message)
-
-    Boolean handleText(Map message)
-
-    Boolean afterHandleText(Map message)
+    boolean beforeHandleMessage(Map message)
 
     /**
-     * 图片消息
+     *
+     * @param message
+     * @return 不回复时返回null， 回复时返回要回复的map包
      */
-    Boolean beforeHandleImage(Map message)
-
-    Boolean handleImage(Map message)
-
-    Boolean afterHandleImage(Map message)
+    Map handleMessage(Map message)
 
     /**
-     * 语音消息
+     * 回复之后的处理操作
+     * @param message
      */
-    Boolean beforeHandleVoice(Map message)
-
-    Boolean handleVoice(Map message)
-
-    Boolean afterHandleVoice(Map message)
-
-    /**
-     * 视频/小视频消息
-     */
-    Boolean beforeHandleVideo(Map message)
-
-    Boolean handleVideo(Map message)
-
-    Boolean afterHandleVideo(Map message)
-
-    /**
-     * 位置消息
-     */
-    Boolean beforeHandleLocation(Map message)
-
-    Boolean handleLocation(Map message)
-
-    Boolean afterHandleLocation(Map message)
-
-    /**
-     * 链接消息
-     */
-    Boolean beforeHandleLink(Map message)
-
-    Boolean handleLink(Map message)
-
-    Boolean afterHandleLink(Map message)
+    void afterHandleMessage(Map message)
 }

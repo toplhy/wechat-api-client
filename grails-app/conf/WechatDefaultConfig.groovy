@@ -2,6 +2,7 @@ wechat {
     appId = ''
     appSecret = ''
     token = ''
+    encodingType='MINGWEN' //明文模式(MINGWEN)、兼容模式(JIANRONG)、密文模式(MIWEN)
     encodingAESKey = ''
     domain = ''
     openId = ''
