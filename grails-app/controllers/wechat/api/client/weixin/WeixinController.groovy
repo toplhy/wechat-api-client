@@ -29,13 +29,14 @@ class WeixinController {
     }
 
     def index() {
+        def config = wechatService.getWechatConfig()
         // 验证服务有效性时为GET请求
         if(request.method == "GET"){
-            redirect action: 'validateServer'
+            validateServer(config, params)
         }
         // 接收消息时为POST请求
         if(request.method == "POST"){
-            redirect action: 'processMessage'
+            processMessage(request, config, params)
         }
     }
 
@@ -43,8 +44,7 @@ class WeixinController {
      * 验证服务有效性
      * @return
      */
-    def validateServer() {
-        def config = wechatService.getWechatConfig()
+    def validateServer(config, params) {
         String token = config?.token
         String signature = params?.signature
         String timestamp = params?.timestamp
@@ -62,12 +62,11 @@ class WeixinController {
      * 接收微信消息
      * @return
      */
-    def processMessage() {
-        def config = wechatService.getWechatConfig()
+    def processMessage(request, config, params) {
         def xmlStr = request.getInputStream().getText("UTF-8")
         def xmlslurper = new XmlSlurper()
-        def xml = xmlslurper.parseText(xmlStr)
-        def map = [:], result, msg;
+        def xml = xmlslurper.parseText(xmlStr.toString())
+        def map = [:], msg
         map.ToUserName = xml.ToUserName.text()
         map.FromUserName = xml.FromUserName.text()
         map.CreateTime = xml.CreateTime.text()
@@ -142,8 +141,7 @@ class WeixinController {
             } else {
 
             }
-            result = getEventInterface().beforeHandleEvent(map)
-            if(result){
+            if(getEventInterface().beforeHandleEvent(map)){
                 msg = getEventInterface().handleEvent(map)
             }
             if(msg) {
@@ -183,8 +181,7 @@ class WeixinController {
             } else {
 
             }
-            result = getMessageInterface().beforeHandleMessage(map)
-            if(result){
+            if(getMessageInterface().beforeHandleMessage(map)){
                 msg = getMessageInterface().handleMessage(map)
             }
             if(msg) {
