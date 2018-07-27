@@ -64,6 +64,9 @@ class WeixinController {
      */
     def processMessage(request, config, params) {
         def xmlStr = request.getInputStream().getText("UTF-8")
+        if(config?.encodingType && config?.encodingType?.equals("MIWEN")){
+            xmlStr = MessageUtils.decode(xmlStr, config, params?.msg_signature, params?.timestamp, params?.nonce)
+        }
         def xmlslurper = new XmlSlurper()
         def xml = xmlslurper.parseText(xmlStr.toString())
         def map = [:], msg
@@ -149,7 +152,7 @@ class WeixinController {
                 def msgResult = MessageUtils.mapToXmlString(msg)
                 if(config?.encodingType && config?.encodingType?.equals("MIWEN")) {
                     //消息加密
-                    msgResult = MessageUtils.encode(msgResult, config?.token, config?.encodingAESKey, config?.appId, "", "")
+                    msgResult = MessageUtils.encode(msgResult, config, params?.timestamp, params?.nonce)
                 }
                 render msgResult
             } else {
@@ -189,7 +192,7 @@ class WeixinController {
                 def msgResult = MessageUtils.mapToXmlString(msg)
                 if(config?.encodingType && config?.encodingType?.equals("MIWEN")) {
                     //消息加密
-                    msgResult = MessageUtils.encode(msgResult, config?.token, config?.encodingAESKey, config?.appId, "", "")
+                    msgResult = MessageUtils.encode(msgResult, config, params?.timestamp, params?.nonce)
                 }
                 render msgResult
             } else {

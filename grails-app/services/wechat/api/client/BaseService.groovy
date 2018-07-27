@@ -88,9 +88,6 @@ class BaseService {
         if(StringUtils.isBlank(config?.appSecret)){
             throw new WeChatException("appSecret is required, please confirm your config.")
         }
-        if(StringUtils.isBlank(config?.domain)){
-            throw new WeChatException("domain is required, please confirm your config.")
-        }
     }
 
     /**
