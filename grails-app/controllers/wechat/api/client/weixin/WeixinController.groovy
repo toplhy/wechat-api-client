@@ -1,6 +1,6 @@
 package wechat.api.client.weixin
 
-import wechat.api.client.WechatService
+import wechat.api.client.WechatBaseService
 import wechat.api.client.enums.EventType
 import wechat.api.client.enums.MsgType
 import wechat.api.client.interfaces.EventInterface
@@ -10,7 +10,7 @@ import wechat.api.client.utils.MessageUtils
 
 class WeixinController {
 
-    WechatService wechatService
+    WechatBaseService wechatBaseService
     MessageInterface messageInterface
     EventInterface eventInterface
 
@@ -29,7 +29,7 @@ class WeixinController {
     }
 
     def index() {
-        def config = wechatService.getWechatConfig()
+        def config = wechatBaseService.getWechatConfig()
         // 验证服务有效性时为GET请求
         if(request.method == "GET"){
             validateServer(config, params)
@@ -52,9 +52,9 @@ class WeixinController {
         String echostr = params?.echostr
         String str = [token, timestamp, nonce].sort().join('').encodeAsSHA1()
         if(str == signature) {
-            return echostr
+            render echostr
         } else {
-            return ""
+            render ""
         }
     }
 

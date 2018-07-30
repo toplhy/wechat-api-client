@@ -10,11 +10,12 @@ import org.springframework.web.client.RestTemplate
 import wechat.api.client.exception.WeChatException
 
 @Transactional
-class BaseService {
+class WechatBaseService {
 
     GrailsApplication application
     RestTemplate restTemplate
 
+    def wechat_config
     def access_token
     def token_expire_time
 
@@ -37,18 +38,20 @@ class BaseService {
      * @return
      */
     def getWechatConfig() {
-        def grailsConfig = getApplication().config.wechat.api.client
-        GroovyClassLoader classLoader = new GroovyClassLoader(WechatService.class.getClassLoader())
-        ConfigSlurper slurper = new ConfigSlurper(Environment.getCurrent().getName())
-        ConfigObject defaultConfig
-        try{
-            defaultConfig = slurper.parse(classLoader.loadClass("WechatDefaultConfig"))
-        } catch (ClassNotFoundException e) {
-            throw new WeChatException(e)
+        if(!wechat_config) {
+            def grailsConfig = getApplication().config.wechat.api.client
+            GroovyClassLoader classLoader = new GroovyClassLoader(WechatBaseService.class.getClassLoader())
+            ConfigSlurper slurper = new ConfigSlurper(Environment.getCurrent().getName())
+            ConfigObject defaultConfig
+            try{
+                defaultConfig = slurper.parse(classLoader.loadClass("WechatDefaultConfig"))
+            } catch (ClassNotFoundException e) {
+                throw new WeChatException(e)
+            }
+            wechat_config = mergeConfig(grailsConfig, (ConfigObject)defaultConfig.getProperty('wechat'))
+            validatorConfig(wechat_config)
         }
-        def config = mergeConfig(grailsConfig, (ConfigObject)defaultConfig.getProperty('wechat'))
-        validatorConfig(config)
-        return config
+        wechat_config
     }
 
     /**
@@ -71,11 +74,11 @@ class BaseService {
                 config.putAll(defaultConfig.merge(grailsConfig))
             }
         }
-        return config
+        config
     }
 
     /**
-     * 对获得的配置校验(appId\appSecret\domain)
+     * 对获得的配置校验(appId\appSecret)
      * @param config
      */
     def validatorConfig(config) {
@@ -106,6 +109,31 @@ class BaseService {
                 throw new WeChatException("get access_token failed: ${json}")
             }
         }
-        return access_token
+        access_token
+    }
+
+    /**
+     * 获取微信服务器IP地址
+     * @return
+     */
+    def getWechatServerIps() {
+        def config = this.getWechatConfig()
+        def atoken = this.getAccessToken()
+        def url = config?.wechatServerIpsUrl?.toString()?.replace("+++", atoken?.toString())
+        def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
+        result
+    }
+
+    /**
+     * 长链接转短链接
+     * @param urlJson
+     * @return
+     */
+    def getShortUrl(urlJson) {
+        def config = this.getWechatConfig()
+        def atoken = this.getAccessToken()
+        def url = config?.long2shortUrl?.toString()?.replace("+++", atoken?.toString())
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, urlJson, String.class))
+        result
     }
 }
