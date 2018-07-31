@@ -9,7 +9,7 @@ wechat {
     welcome = ''
 
     // urls
-    // ###=appId   ***=secret   +++=access_token
+    // ###=appId   ***=secret   +++=access_token   ---=code/refresh_token/lang    >>>=openid
     accessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=###&secret=***'
     wechatServerIpsUrl = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=+++'
     long2shortUrl = 'https://api.weixin.qq.com/cgi-bin/shorturl?access_token=+++'
@@ -22,7 +22,7 @@ wechat {
     menuTrymatchUrl = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=+++'
     currentMenuInfoUrl = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=+++'
 
-    //template message url
+    // template message url
     industrySetUrl = 'https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=+++'
     industryGetUrl = 'https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token=+++'
     templateIdsGetUrl = 'https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=+++'
@@ -30,4 +30,10 @@ wechat {
     privateTemplateDeleteUrl = 'https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token=+++'
     templateMsgSendUrl = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=+++'
 
+    // oauth2 url
+    oAuth2GetUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=###'
+    oAuth2AccessTokenUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=###&secret=***&code=---&grant_type=authorization_code'
+    tokenRefreshUrl = 'https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=###&grant_type=refresh_token&refresh_token=---'
+    userInfoUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token=+++&openid=>>>&lang=---'
+    tokenValidateUrl = 'https://api.weixin.qq.com/sns/auth?access_token=+++&openid=>>>'
 }
