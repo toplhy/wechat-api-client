@@ -11,6 +11,7 @@ import grails.transaction.Transactional
 class WechatMessageService extends WechatBaseService{
 
     /**
+     * todo 测试
      * 模板消息
      * 设置所属行业
      * @param customerJson
@@ -25,6 +26,7 @@ class WechatMessageService extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 模板消息
      * 获取设置的行业信息
      * @return
@@ -38,16 +40,17 @@ class WechatMessageService extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 模板消息
      * 获得模板ID
-     * @param templateIdsJson
+     * @param templateId
      * @return
      */
-    def getTemplateIds(templateIdsJson) {
+    def getTemplateIds(templateId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.templateIdsGetUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, templateIdsJson, String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id_short': templateId] as JSON), String.class))
         result
     }
     /**
@@ -66,18 +69,19 @@ class WechatMessageService extends WechatBaseService{
     /**
      * 模板消息
      * 删除已添加至账号的模板
-     * @param templateIdJson
+     * @param templateId
      * @return
      */
-    def deletePrivateTemplate(templateIdJson) {
+    def deletePrivateTemplate(templateId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.privateTemplateDeleteUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, templateIdJson, String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id': templateId] as JSON), String.class))
         result
     }
 
     /**
+     * todo 测试
      * 模板消息
      * 发送模板消息
      * @param msgJson

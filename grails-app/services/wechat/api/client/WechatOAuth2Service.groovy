@@ -3,6 +3,9 @@ package wechat.api.client
 import grails.converters.JSON
 import grails.transaction.Transactional
 
+/**
+ * 网页授权
+ */
 @Transactional
 class WechatOAuth2Service extends WechatBaseService{
 
@@ -60,6 +63,7 @@ class WechatOAuth2Service extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 检验授权凭证（access_token）是否有效
      * @param accessToken
      * @param openId

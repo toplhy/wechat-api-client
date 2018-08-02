@@ -9,7 +9,7 @@ wechat {
     welcome = ''
 
     // urls
-    // ###=appId   ***=secret   +++=access_token   ---=code/refresh_token/lang    >>>=openid
+    // ###=appId   ***=secret   +++=access_token   ---=code/refresh_token/lang/type    >>>=openid
     accessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=###&secret=***'
     wechatServerIpsUrl = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=+++'
     long2shortUrl = 'https://api.weixin.qq.com/cgi-bin/shorturl?access_token=+++'
@@ -36,4 +36,17 @@ wechat {
     tokenRefreshUrl = 'https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=###&grant_type=refresh_token&refresh_token=---'
     userInfoUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token=+++&openid=>>>&lang=---'
     tokenValidateUrl = 'https://api.weixin.qq.com/sns/auth?access_token=+++&openid=>>>'
+
+    // material url
+    meidaUploadUrl = 'https://api.weixin.qq.com/cgi-bin/media/upload?access_token=+++&type=---'
+    mediaGetUrl = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token=+++&media_id=---'
+    mediaVoiceGetUrl = 'https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=+++&media_id=---'
+    newsAddUrl = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=+++'
+    newsUpdateUrl = 'https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=+++'
+    newsImgUploadUrl = 'https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=+++'
+    materialAddUrl = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=+++&type=---'
+    materialGetUrl = 'https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=+++'
+    materialDelUrl = 'https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=+++'
+    mateerialCountUrl = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=+++'
+    materialListUrl = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=+++'
 }

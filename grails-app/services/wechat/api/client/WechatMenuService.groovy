@@ -47,6 +47,7 @@ class WechatMenuService extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 个性化菜单创建
      * @param menuJson
      * @return
@@ -60,6 +61,7 @@ class WechatMenuService extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 个性化菜单删除
      * @param menuIdJson 菜单id json
      * @return
@@ -73,6 +75,7 @@ class WechatMenuService extends WechatBaseService{
     }
 
     /**
+     * todo 测试
      * 个性化菜单匹配结果测试
      * @param userIdJson user_id可以是openId，也可以是微信号 json
      * @return
