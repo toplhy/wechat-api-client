@@ -17,7 +17,7 @@ class WechatMenuService extends WechatBaseService{
     def createMenu(menuJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.menuCreateUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.createMenuUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, menuJson, String.class))
         result
     }
@@ -29,7 +29,7 @@ class WechatMenuService extends WechatBaseService{
     def getMenu() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.menuGetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getMenuUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -41,7 +41,7 @@ class WechatMenuService extends WechatBaseService{
     def deleteMenu() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.menuDeleteUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.deleteMenuUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -55,7 +55,7 @@ class WechatMenuService extends WechatBaseService{
     def createConditionalMenu(menuJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.conditionalMenuCreateUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.createConditionalMenuUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, menuJson, String.class))
         result
     }
@@ -69,7 +69,7 @@ class WechatMenuService extends WechatBaseService{
     def deleteConditionalMenu(menuIdJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.conditionalMenuDeleteUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.deleteConditionalMenueUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, menuIdJson, String.class))
         result
     }
@@ -83,7 +83,7 @@ class WechatMenuService extends WechatBaseService{
     def trymatchMenu(userIdJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.menuTrymatchUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.tryMatchMenuUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, userIdJson, String.class))
         result
     }
@@ -95,7 +95,7 @@ class WechatMenuService extends WechatBaseService{
     def getCurrentMenuInfo() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.currentMenuInfoUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getCurrentMenuInfoUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }

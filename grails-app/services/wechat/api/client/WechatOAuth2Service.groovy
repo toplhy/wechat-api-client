@@ -18,7 +18,7 @@ class WechatOAuth2Service extends WechatBaseService{
      */
     def getOAuth2Url(redirectUrl, scope, state) {
         def config = this.getWechatConfig()
-        def url = config?.oAuth2GetUrl?.toString()?.replace("###", config?.appId?.toString())
+        def url = config?.getOAuth2Url?.toString()?.replace("###", config?.appId?.toString())
         redirectUrl = URLEncoder.encode(redirectUrl?.toString())
         url += "&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}&state=${state}#wechat_redirect"
         url
@@ -31,7 +31,7 @@ class WechatOAuth2Service extends WechatBaseService{
      */
     def getOAuth2AccessToken(code) {
         def config = this.getWechatConfig()
-        def url = config?.oAuth2AccessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())?.replace("---", code?.toString())
+        def url = config?.getOAuth2AccessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())?.replace("---", code?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -43,7 +43,7 @@ class WechatOAuth2Service extends WechatBaseService{
      */
     def refreshAccessToken(refreshToken) {
         def config = this.getWechatConfig()
-        def url = config?.tokenRefreshUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("---", refreshToken?.toString())
+        def url = config?.refreshTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("---", refreshToken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -57,7 +57,7 @@ class WechatOAuth2Service extends WechatBaseService{
      */
     def getUserInfo(accessToken, openId, lang = 'zh_CN') {
         def config = this.getWechatConfig()
-        def url = config?.userInfoUrl?.toString()?.replace("+++", accessToken?.toString())?.replace(">>>", openId?.toString())?.replace("---", lang?.toString())
+        def url = config?.getOAuth2UserInfoUrl?.toString()?.replace("+++", accessToken?.toString())?.replace(">>>", openId?.toString())?.replace("---", lang?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -71,7 +71,7 @@ class WechatOAuth2Service extends WechatBaseService{
      */
     def validateAccessToken(accessToken, openId) {
         def config = this.getWechatConfig()
-        def url = config?.tokenValidateUrl?.toString()?.replace("+++", accessToken?.toString())?.replace(">>>", openId?.toString())
+        def url = config?.validateTokenUrl?.toString()?.replace("+++", accessToken?.toString())?.replace(">>>", openId?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }

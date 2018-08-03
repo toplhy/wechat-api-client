@@ -100,7 +100,7 @@ class WechatBaseService {
     def getAccessToken() {
         if((token_expire_time?:0) < System.currentTimeMillis()) {
             def config = this.getWechatConfig()
-            def url = config?.accessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())
+            def url = config?.getAccessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())
             def json =  JSON.parse(getRestTemplate().getForObject(url, String.class))
             if(json.access_token){
                 token_expire_time =  System.currentTimeMillis()+7000*1000
@@ -119,7 +119,7 @@ class WechatBaseService {
     def getWechatServerIps() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.wechatServerIpsUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getWechatServerIpsUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -132,7 +132,7 @@ class WechatBaseService {
     def getShortUrl(urlJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.long2shortUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getLong2shortUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, urlJson, String.class))
         result
     }

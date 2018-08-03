@@ -20,7 +20,7 @@ class WechatMessageService extends WechatBaseService{
     def setIndustry(industryJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.industrySetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.setIndustryUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, industryJson, String.class))
         result
     }
@@ -34,7 +34,7 @@ class WechatMessageService extends WechatBaseService{
     def getIndustry() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.industryGetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getIndustryUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -49,7 +49,7 @@ class WechatMessageService extends WechatBaseService{
     def getTemplateIds(templateId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.templateIdsGetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getTemplateIdsUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id_short': templateId] as JSON), String.class))
         result
     }
@@ -61,7 +61,7 @@ class WechatMessageService extends WechatBaseService{
     def getPrivateTemplates() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.privateTemplatesGetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getPrivateTemplatesUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -75,7 +75,7 @@ class WechatMessageService extends WechatBaseService{
     def deletePrivateTemplate(templateId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.privateTemplateDeleteUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.deletePrivateTemplateUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id': templateId] as JSON), String.class))
         result
     }
@@ -90,7 +90,7 @@ class WechatMessageService extends WechatBaseService{
     def sendTemplateMsg(msgJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.templateMsgSendUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.sendTemplateMsgUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, msgJson, String.class))
         result
     }

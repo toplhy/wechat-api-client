@@ -141,6 +141,11 @@ class WeixinController {
                 map.NeedShowReprintSource = xml.NeedShowReprintSource.text()
                 map.CheckState = xml.CheckState.text()
                 map.CheckState = xml.CheckState.text()
+            } else if(event_type == EventType.QUALIFICATIONVERIFYSUCCESS.value || event_type == EventType.NAMINGVERIFYSUCCESS.value || event_type == EventType.ANNUALRENEW.value || event_type == EventType.VERIFYEXPIRED.value) {
+                map.ExpiredTime = xml.ExpiredTime.text()
+            } else if(event_type == EventType.QUALIFICATIONVERIFYFAIL.value || event_type == EventType.NAMINGVERIFYFAIL.value) {
+                map.FailTime = xml.FailTime.text()
+                map.FailReason = xml.FailReason.text()
             } else {
 
             }

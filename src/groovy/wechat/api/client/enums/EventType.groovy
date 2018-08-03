@@ -15,7 +15,14 @@ enum EventType {
     PICWEIXIN("pic_weixin"), // 弹出微信相册发图器的事件推送
     LOCATIONSELECT("location_select"), // 弹出地理位置选择器的事件推送
     TEMPLATESENDJOBFINISH("TEMPLATESENDJOBFINISH"), // 模板消息发送任务完成
-    MASSSENDJOBFINISH("MASSSENDJOBFINISH") // 群发消息发送完成
+    MASSSENDJOBFINISH("MASSSENDJOBFINISH"), // 群发消息发送完成
+    QUALIFICATIONVERIFYSUCCESS("qualification_verify_success"), //资质认证成功
+    QUALIFICATIONVERIFYFAIL("qualification_verify_fail"), //资质认证成功
+    NAMINGVERIFYSUCCESS("naming_verify_success"), //名称认证成功
+    NAMINGVERIFYFAIL("naming_verify_fail"), //名称认证失败
+    ANNUALRENEW("annual_renew"), //年审通知
+    VERIFYEXPIRED("verify_expired") //认证过期失效通知
+
 
     String value
 

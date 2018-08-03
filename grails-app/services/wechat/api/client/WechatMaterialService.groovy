@@ -39,7 +39,7 @@ class WechatMaterialService extends WechatBaseService{
     def uploadMedia(File file, String type) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.meidaUploadUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", type)
+        def url = config?.uploadMediaUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", type)
         def result = JSON.parse(this.getRestTemplate().postForObject(url, geneRequest(file), String.class))
         result
     }
@@ -53,7 +53,7 @@ class WechatMaterialService extends WechatBaseService{
     def getMedia(mediaId, isVideo = false) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.mediaGetUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", mediaId?.toString())
+        def url = config?.getMediaUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", mediaId?.toString())
         if(isVideo) {
             def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
             result
@@ -78,7 +78,7 @@ class WechatMaterialService extends WechatBaseService{
         def fileMap = [:]
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.mediaVoiceGetUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", mediaId?.toString())
+        def url = config?.getMediaVoiceUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", mediaId?.toString())
         ResponseEntity<String> responseEntity = this.getRestTemplate().getForEntity(url, String.class)
         fileMap.filename = responseEntity?.getHeaders()?.get("Content-disposition")?.get(0)?.replace('attachment; filename=', '')?.replace('"','')
         fileMap.filetype = responseEntity?.getHeaders()?.getContentType()
@@ -96,7 +96,7 @@ class WechatMaterialService extends WechatBaseService{
     def addNews(newsJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.newsAddUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.addNewsUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, newsJson, String.class))
         result
     }
@@ -110,7 +110,7 @@ class WechatMaterialService extends WechatBaseService{
     def updateNews(newsJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.newsUpdateUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.updateNewsUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, newsJson, String.class))
         result
     }
@@ -124,7 +124,7 @@ class WechatMaterialService extends WechatBaseService{
     def uploadNewsImg(File file) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.newsImgUploadUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.uploadNewsImgUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, geneRequest(file), String.class))
         result
     }
@@ -138,7 +138,7 @@ class WechatMaterialService extends WechatBaseService{
     def addMaterial(File file, String type) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.newsImgUploadUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.addMaterialUrl?.toString()?.replace("+++", atoken?.toString())
         if(type != 'video') {
             def result = JSON.parse(this.getRestTemplate().postForObject(url, geneRequest(file), String.class))
             result
@@ -158,7 +158,7 @@ class WechatMaterialService extends WechatBaseService{
     def getMaterial(mediaId, isVideoOrNews = false) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.materialGetUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getMaterialUrl?.toString()?.replace("+++", atoken?.toString())
         if(isVideoOrNews) {
             def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSON) ,String.class))
             result
@@ -181,7 +181,7 @@ class WechatMaterialService extends WechatBaseService{
     def delMaterial(mediaId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.materialDelUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.deleteMaterialUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSON) ,String.class))
         result
     }
@@ -194,7 +194,7 @@ class WechatMaterialService extends WechatBaseService{
     def countMaterial() {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.mateerialCountUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.countMaterialUrl?.toString()?.replace("+++", atoken?.toString())
         def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
         result
     }
@@ -210,7 +210,7 @@ class WechatMaterialService extends WechatBaseService{
     def listMaterial(String type, int offset = 0, int count = 10) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.materialListUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.getMaterialListUrl?.toString()?.replace("+++", atoken?.toString())
         def data = ["type": type, "offset": offset, "count": count] as JSON
         def result = JSON.parse(this.getRestTemplate().postForObject(url, data, String.class))
         result
