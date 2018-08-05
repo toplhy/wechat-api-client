@@ -125,15 +125,19 @@ class WechatBaseService {
     }
 
     /**
+     * TODO 测试
      * 长链接转短链接
-     * @param urlJson
+     * @param longUrl
      * @return
      */
-    def getShortUrl(urlJson) {
+    def getShortUrl(String longUrl) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.getLong2shortUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, urlJson, String.class))
+        def map = [:]
+        map.action = 'long2short'
+        map.long_url = longUrl
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, map as JSON, String.class))
         result
     }
 }

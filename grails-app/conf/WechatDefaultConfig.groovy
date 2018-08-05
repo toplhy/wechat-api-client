@@ -1,12 +1,11 @@
 wechat {
-    appId = ''
-    appSecret = ''
-    token = ''
+    appId = 'wxb05e9af4febbab77'
+    appSecret = 'c69f5271e12c43bac50e89dbc348beb8'
+    token = 'lhy'
     encodingType='MINGWEN' //明文模式(MINGWEN)、兼容模式(JIANRONG)、密文模式(MIWEN)
     encodingAESKey = ''
-    domain = ''
+    domain = 'toplhyi.oicp.io'
     openId = ''
-    welcome = ''
 
     // urls
     // ###=appId   ***=secret   +++=access_token   ---=code/refresh_token/lang/type    >>>=openid
@@ -71,4 +70,23 @@ wechat {
     // qrcode url
     createQrCodeUrl = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=+++'
     getQrCodeUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=---'
+
+    // datacube url
+    getUserSummaryUrl = 'https://api.weixin.qq.com/datacube/getusersummary?access_token=+++'
+    getUserCumulateUrl = 'https://api.weixin.qq.com/datacube/getusercumulate?access_token=+++'
+    getArticleSummaryUrl = 'https://api.weixin.qq.com/datacube/getarticlesummary?access_token=+++'
+    getArticleTotalUrl = 'https://api.weixin.qq.com/datacube/getarticletotal?access_token=+++'
+    getUserReadUrl = 'https://api.weixin.qq.com/datacube/getuserread?access_token=+++'
+    getUserReadHourUrl = 'https://api.weixin.qq.com/datacube/getuserreadhour?access_token=+++'
+    getUserShareUrl = 'https://api.weixin.qq.com/datacube/getusershare?access_token=+++'
+    getUserShareHourUrl = 'https://api.weixin.qq.com/datacube/getusersharehour?access_token=+++'
+    getUpstreamMsgUrl = 'https://api.weixin.qq.com/datacube/getupstreammsg?access_token=+++'
+    getUpstreamMsgHourUrl = 'https://api.weixin.qq.com/datacube/getupstreammsghour?access_token=+++'
+    getUpstreamMsgWeekUrl = 'https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token=+++'
+    getUpstreamMsgMonthUrl = 'https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token=+++'
+    getUpstreamMsgDistUrl = 'https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token=+++'
+    getUpstreamMsgDistWeekUrl = 'https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token=+++'
+    getUpstreamMsgDistMonthUrl = 'https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token=+++'
+    getInterfaceSummaryUrl = 'https://api.weixin.qq.com/datacube/getinterfacesummary?access_token=+++'
+    getInterfaceSummaryHourUrl = 'https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token=+++'
 }

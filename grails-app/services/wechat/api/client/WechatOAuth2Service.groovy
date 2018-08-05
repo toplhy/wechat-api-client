@@ -2,6 +2,7 @@ package wechat.api.client
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import wechat.api.client.enums.OAuth2Scope
 
 /**
  * 网页授权
@@ -16,11 +17,11 @@ class WechatOAuth2Service extends WechatBaseService{
      * @param state
      * @return
      */
-    def getOAuth2Url(redirectUrl, scope, state) {
+    def getOAuth2Url(String redirectUrl, OAuth2Scope scope, String state) {
         def config = this.getWechatConfig()
         def url = config?.getOAuth2Url?.toString()?.replace("###", config?.appId?.toString())
-        redirectUrl = URLEncoder.encode(redirectUrl?.toString())
-        url += "&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}&state=${state}#wechat_redirect"
+        redirectUrl = URLEncoder.encode(redirectUrl)
+        url += "&redirect_uri=${redirectUrl}&response_type=code&scope=${scope.value}&state=${state}#wechat_redirect"
         url
     }
 
