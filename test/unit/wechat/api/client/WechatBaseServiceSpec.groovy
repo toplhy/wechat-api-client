@@ -4,7 +4,7 @@ import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
- * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ * WechatBaseService test class
  */
 @TestFor(WechatBaseService)
 class WechatBaseServiceSpec extends Specification {
@@ -18,13 +18,13 @@ class WechatBaseServiceSpec extends Specification {
     def cleanup() {
     }
 
-    def testGetWechatConfig() {
+    void testGetWechatConfig() {
         def result = wechatBaseService.getWechatConfig()
         println "testGetWechatConfig result: ${result}"
         expect: result && result.getAccessTokenUrl
     }
 
-    def testGetAccessToken() {
+    void testGetAccessToken() {
         def result = wechatBaseService.getAccessToken()
         println "testGetAccessToken result: ${result}"
         expect: result
@@ -37,7 +37,7 @@ class WechatBaseServiceSpec extends Specification {
     }
 
     void testGetShortUrl(){
-        def longUrl = 'https://github.com/toplhy/wechat-api-client'
+        def longUrl = 'https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432'
         def result = wechatBaseService.getShortUrl(longUrl)
         println "testGetShortUrl result: ${result}"
         expect: result && result.errcode == 0

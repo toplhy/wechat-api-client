@@ -2,6 +2,7 @@ package wechat.api.client
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 /**
  * 消息管理
@@ -11,22 +12,20 @@ import grails.transaction.Transactional
 class WechatMessageService extends WechatBaseService{
 
     /**
-     * todo 测试
      * 模板消息
      * 设置所属行业
-     * @param customerJson
+     * @param
      * @return
      */
-    def setIndustry(industryJson) {
+    def setIndustry(industryId1, industryId2) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.setIndustryUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, industryJson, String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, ["industry_id1": industryId1, "industry_id2": industryId2] as JSONObject, String.class))
         result
     }
 
     /**
-     * todo 测试
      * 模板消息
      * 获取设置的行业信息
      * @return
@@ -40,7 +39,6 @@ class WechatMessageService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 模板消息
      * 获得模板ID
      * @param templateId
@@ -50,7 +48,7 @@ class WechatMessageService extends WechatBaseService{
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.getTemplateIdsUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id_short': templateId] as JSON), String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['template_id_short': templateId] as JSONObject), String.class))
         result
     }
     /**
@@ -81,7 +79,6 @@ class WechatMessageService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 模板消息
      * 发送模板消息
      * @param msgJson

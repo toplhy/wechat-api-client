@@ -2,6 +2,7 @@ package wechat.api.client
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.json.JSONObject
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -93,7 +94,7 @@ class WechatMaterialService extends WechatBaseService{
      * @param newsJson
      * @return
      */
-    def addNews(newsJson) {
+    def addNews(JSONObject newsJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.addNewsUrl?.toString()?.replace("+++", atoken?.toString())
@@ -107,7 +108,7 @@ class WechatMaterialService extends WechatBaseService{
      * @param newsJson
      * @return
      */
-    def updateNews(newsJson) {
+    def updateNews(JSONObject newsJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.updateNewsUrl?.toString()?.replace("+++", atoken?.toString())
@@ -138,7 +139,7 @@ class WechatMaterialService extends WechatBaseService{
     def addMaterial(File file, String type) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
-        def url = config?.addMaterialUrl?.toString()?.replace("+++", atoken?.toString())
+        def url = config?.addMaterialUrl?.toString()?.replace("+++", atoken?.toString())?.replace("---", type)
         if(type != 'video') {
             def result = JSON.parse(this.getRestTemplate().postForObject(url, geneRequest(file), String.class))
             result
@@ -160,7 +161,7 @@ class WechatMaterialService extends WechatBaseService{
         def atoken = this.getAccessToken()
         def url = config?.getMaterialUrl?.toString()?.replace("+++", atoken?.toString())
         if(isVideoOrNews) {
-            def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSON) ,String.class))
+            def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSONObject) ,String.class))
             result
         }else{
             ResponseEntity<String> responseEntity = this.getRestTemplate().getForEntity(url, String.class)
@@ -182,7 +183,7 @@ class WechatMaterialService extends WechatBaseService{
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.deleteMaterialUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSON) ,String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, (['media_id':mediaId] as JSONObject) ,String.class))
         result
     }
 
@@ -211,7 +212,7 @@ class WechatMaterialService extends WechatBaseService{
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.getMaterialListUrl?.toString()?.replace("+++", atoken?.toString())
-        def data = ["type": type, "offset": offset, "count": count] as JSON
+        def data = ["type": type, "offset": offset, "count": count] as JSONObject
         def result = JSON.parse(this.getRestTemplate().postForObject(url, data, String.class))
         result
     }

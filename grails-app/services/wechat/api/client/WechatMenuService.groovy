@@ -2,6 +2,7 @@ package wechat.api.client
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 /**
  * 自定义菜单
@@ -14,7 +15,7 @@ class WechatMenuService extends WechatBaseService{
      * @param menuJson
      * @return
      */
-    def createMenu(menuJson) {
+    def createMenu(JSONObject menuJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.createMenuUrl?.toString()?.replace("+++", atoken?.toString())
@@ -47,12 +48,11 @@ class WechatMenuService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 个性化菜单创建
      * @param menuJson
      * @return
      */
-    def createConditionalMenu(menuJson) {
+    def createConditionalMenu(JSONObject menuJson) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.createConditionalMenuUrl?.toString()?.replace("+++", atoken?.toString())
@@ -61,30 +61,28 @@ class WechatMenuService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 个性化菜单删除
-     * @param menuIdJson 菜单id json
+     * @param menuId
      * @return
      */
-    def deleteConditionalMenu(menuIdJson) {
+    def deleteConditionalMenu(menuId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.deleteConditionalMenueUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, menuIdJson, String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, ["menuid": menuId] as JSONObject, String.class))
         result
     }
 
     /**
-     * todo 测试
      * 个性化菜单匹配结果测试
-     * @param userIdJson user_id可以是openId，也可以是微信号 json
+     * @param userId user_id可以是openId，也可以是微信号
      * @return
      */
-    def trymatchMenu(userIdJson) {
+    def trymatchMenu(userId) {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.tryMatchMenuUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, userIdJson, String.class))
+        def result = JSON.parse(this.getRestTemplate().postForObject(url, ["user_id": userId] as JSONObject, String.class))
         result
     }
 

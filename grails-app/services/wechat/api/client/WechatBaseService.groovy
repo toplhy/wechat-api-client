@@ -1,11 +1,11 @@
 package wechat.api.client
 
-import grails.converters.JSON
 import grails.transaction.Transactional
 import grails.util.Environment
 import grails.util.Holders
 import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.grails.web.json.JSONObject
 import org.springframework.web.client.RestTemplate
 import wechat.api.client.exception.WeChatException
 
@@ -101,7 +101,7 @@ class WechatBaseService {
         if((token_expire_time?:0) < System.currentTimeMillis()) {
             def config = this.getWechatConfig()
             def url = config?.getAccessTokenUrl?.toString()?.replace("###", config?.appId?.toString())?.replace("***", config?.appSecret?.toString())
-            def json =  JSON.parse(getRestTemplate().getForObject(url, String.class))
+            def json =  getRestTemplate().getForObject(url, JSONObject.class)
             if(json.access_token){
                 token_expire_time =  System.currentTimeMillis()+7000*1000
                 access_token =  json.access_token
@@ -120,12 +120,11 @@ class WechatBaseService {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.getWechatServerIpsUrl?.toString()?.replace("+++", atoken?.toString())
-        def result = JSON.parse(this.getRestTemplate().getForObject(url, String.class))
+        def result = this.getRestTemplate().getForObject(url, JSONObject.class)
         result
     }
 
     /**
-     * TODO 测试
      * 长链接转短链接
      * @param longUrl
      * @return
@@ -134,10 +133,7 @@ class WechatBaseService {
         def config = this.getWechatConfig()
         def atoken = this.getAccessToken()
         def url = config?.getLong2shortUrl?.toString()?.replace("+++", atoken?.toString())
-        def map = [:]
-        map.action = 'long2short'
-        map.long_url = longUrl
-        def result = JSON.parse(this.getRestTemplate().postForObject(url, map as JSON, String.class))
+        def result = this.getRestTemplate().postForObject(url, ["action": "long2short", "long_url": longUrl] as JSONObject, String.class)
         result
     }
 }
