@@ -8,16 +8,15 @@ class WechatApiClientGrailsPlugin {
         "grails-app/views/error.gsp"
     ]
 
-    // TODO Fill in these fields
     def title = "Wechat Api Client Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "lhy"
+    def authorEmail = "liang_hongyi@163.com"
     def description = '''\
-Brief summary/description of the plugin.
+The plugin encapsulated some service which can use easily when you develop a wechat subscription app.
 '''
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/wechat-api-client"
+    def documentation = ""
 
     // Extra (optional) plugin metadata
 
