@@ -2,6 +2,7 @@ package wechat.api.client
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.json.JSONObject
 import org.springframework.http.ResponseEntity
 
 /**
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity
 class WechatQrCodeService extends WechatBaseService{
 
     /**
-     * todo 测试
      * 创建临时二维码
      * @param senceType 场景类型（INT 整形/STR 字符串）
      * @param senceValue
@@ -24,10 +24,10 @@ class WechatQrCodeService extends WechatBaseService{
         def actionName = senceType?.toString()?.equals("id")?"QR_SCENE":"QR_STR_SCENE"
         def json = ""
         if(senceType?.toString()?.equals("INT")) {
-            json = ["expire_seconds": expireSeconds, "action_name": actionName, "action_info":["scene":["scene_id": senceValue]]] as JSON
+            json = ["expire_seconds": expireSeconds, "action_name": actionName, "action_info":["scene":["scene_id": senceValue]]] as JSONObject
         }
         if(senceType?.toString()?.equals("STR")) {
-            json = ["expire_seconds": expireSeconds, "action_name": actionName, "action_info":["scene":["scene_str": senceValue]]] as JSON
+            json = ["expire_seconds": expireSeconds, "action_name": actionName, "action_info":["scene":["scene_str": senceValue]]] as JSONObject
         }
         if(json) {
             def url = config?.createQrCodeUrl?.toString()?.replace("+++", atoken?.toString())
@@ -37,7 +37,6 @@ class WechatQrCodeService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 创建永久二维码
      * @param senceType  场景类型（INT 整形/STR 字符串）
      * @param senceValue
@@ -49,10 +48,10 @@ class WechatQrCodeService extends WechatBaseService{
         def actionName = senceType?.toString()?.equals("id")?"QR_LIMIT_SCENE":"QR_LIMIT_STR_SCENE"
         def json = ""
         if(senceType?.toString()?.equals("INT")) {
-            json = ["action_name": actionName, "action_info":["scene":["scene_id": senceValue]]] as JSON
+            json = ["action_name": actionName, "action_info":["scene":["scene_id": senceValue]]] as JSONObject
         }
         if(senceType?.toString()?.equals("STR")) {
-            json = ["action_name": actionName, "action_info":["scene":["scene_str": senceValue]]] as JSON
+            json = ["action_name": actionName, "action_info":["scene":["scene_str": senceValue]]] as JSONObject
         }
         if(json) {
             def url = config?.createQrCodeUrl?.toString()?.replace("+++", atoken?.toString())
@@ -71,6 +70,10 @@ class WechatQrCodeService extends WechatBaseService{
         def config = this.getWechatConfig()
         def url = config?.getQrCodeUrl?.toString()?.replace("---", ticket?.toString())
         ResponseEntity<String> responseEntity = this.getRestTemplate().getForEntity(url, String.class)
-        responseEntity
+        def fileMap = [:]
+        fileMap.filetype = responseEntity?.getHeaders()?.getContentType()
+        fileMap.length = responseEntity?.getHeaders()?.getContentLength()
+        fileMap.bytes = responseEntity?.getBody()?.getBytes()
+        fileMap
     }
 }

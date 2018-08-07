@@ -56,11 +56,20 @@ class WechatMessageServiceSpec extends Specification {
     }
 
     /**
+     * 删除已添加至账号的模板
+     */
+    void testDeletePrivateTemplate() {
+        def result = wechatMessageService.deletePrivateTemplate("fvakcAXUkSZCjENuXTghe4CLxm8vIJwmgB9vFgzTxv4")
+        println "testDeletePrivateTemplate result: ${result}"
+        expect: result
+    }
+
+    /**
      * 发送模板消息
      */
     void testSendTemplateMsg() {
         def map = [:]
-        map.touser = ""
+        map.touser = "oKVN01dq09qGVIQVjthHox_3JCf8"
         map.template_id = "fvakcAXUkSZCjENuXTghe4CLxm8vIJwmgB9vFgzTxv4"
         map.url = "https://www.baidu.com"
         def data = [:]

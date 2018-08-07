@@ -1,10 +1,10 @@
 wechat {
-    appId = 'wxb05e9af4febbab77'
-    appSecret = 'c69f5271e12c43bac50e89dbc348beb8'
-    token = 'lhy'
+    appId = ''
+    appSecret = ''
+    token = ''
     encodingType='MINGWEN' //明文模式(MINGWEN)、兼容模式(JIANRONG)、密文模式(MIWEN)
     encodingAESKey = ''
-    domain = 'toplhyi.oicp.io'
+    domain = ''
     openId = ''
 
     // urls
