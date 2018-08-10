@@ -13,7 +13,7 @@
 
 ---
 #### <span id="weixinMark"></span>WeixinController
-&emsp;&emsp;在填写服务器配置时,在服务器地址（URL）一栏填写“http://yourdomain/yourapp/weixin/index”,例如“http://toplhyi.oicp.io/wechatDemo/weixin/index”,微信服务器将会发送验证请求到该URL，并在验证通过后用户每次向公众号发送消息、或者产生自定义菜单、或产生微信支付订单等情况时，该URL将得到微信服务器推送过来的消息和事件。
+&emsp;&emsp;在填写服务器配置时,在服务器地址（URL）一栏填写“http://yourdomain/yourapp/weixin/index”, 例如“http://toplhyi.oicp.io/wechatDemo/weixin/index”, 微信服务器将会发送验证请求到该URL，并在验证通过后用户每次向公众号发送消息、或者产生自定义菜单、或产生微信支付订单等情况时，该URL将得到微信服务器推送过来的消息和事件。
 
 &emsp;&emsp;方法中对微信推送过来的消息和事件进行了处理，如果要响应这些消息和事件，需要实现MessageInterface和EventInterface接口，且实现类命名须为“wechat.api.client.impl.MessageInterfaceImpl”和“wechat.api.client.impl.EventInterfaceImpl”。
 
