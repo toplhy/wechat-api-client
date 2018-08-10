@@ -61,7 +61,6 @@ class WechatQrCodeService extends WechatBaseService{
     }
 
     /**
-     * todo 测试
      * 通过ticket换取二维码
      * @param ticket
      * @return
