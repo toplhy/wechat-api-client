@@ -1,14 +1,34 @@
 # wechat-api-client
-微信公众号快速开发grails插件
+微信公众号快速开发grails插件（grails-2.5.6）
 ---
 
-#### WeixinController
+##使用
+
+#### 项目配置文件
+在你的项目的配置文件的wechat.api.client闭包中配置：
+```$xslt
+wechat {
+     api {
+         client {
+             appId = ""
+             appSecret = ""
+             token = ""
+             encodingType = "MINGWEN" //明文模式(MINGWEN)、兼容模式(JIANRONG)、密文模式(MIWEN)
+             encodingAESKey = ""
+         }
+     }
+ }
+```
+
+---
+#### 微信公众平台配置
 &emsp;&emsp;在填写服务器配置时,在服务器地址（URL）一栏填写`http://yourdomain/yourapp/weixin/index` ,例如`http://toplhyi.oicp.io/wechatDemo/weixin/index` ,微信服务器将会发送验证请求到该URL，并在验证通过后用户每次向公众号发送消息、或者产生自定义菜单、或产生微信支付订单等情况时，该URL将得到微信服务器推送过来的消息和事件。
 
 &emsp;&emsp;方法中对微信推送过来的消息和事件进行了处理，如果要响应这些消息和事件，需要实现MessageInterface和EventInterface接口，且实现类命名须为“wechat.api.client.impl.MessageInterfaceImpl”和“wechat.api.client.impl.EventInterfaceImpl”。
 
 ---
-#### WechatBaseService
+#### 方法
+##### WechatBaseService
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -19,7 +39,7 @@ getShortUrl|String longUrl|长连接Url|长链接转短链接
 
 
 ---
-#### WechatMenuService
+##### WechatMenuService
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -33,7 +53,7 @@ getCurrentMenuInfo|无|无|获取自定义菜单配置
 
 
 ---
-#### WechatMessageService（目前只实现了模板消息相关接口）
+##### WechatMessageService（目前只实现了模板消息相关接口）
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -46,7 +66,7 @@ sendTemplateMsg|JSONObject msgJson|消息Json数据|发送模板消息
 
 
 ---
-#### WechatOAuth2Service
+##### WechatOAuth2Service
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -58,7 +78,7 @@ validateAccessToken|String accessToken, <br/> String openId|网页授权接口�
 
 
 ---
-#### WechatMaterialService(部分方法未测试)
+##### WechatMaterialService(部分方法未测试)
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -76,7 +96,7 @@ listMaterial（未测试）|String type, <br/> int offset = 0, <br/> int count =
 
 
 ---
-#### WechatUserService
+##### WechatUserService
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -98,7 +118,7 @@ getBlackUserList|String nextOpenId = ""|起始用户openId（默认为空，从�
 
 
 ---
-#### WechatQrCodeService
+##### WechatQrCodeService
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---
@@ -108,7 +128,7 @@ getQrCode|String ticket|换取二维码的票据|通过ticket换取二维码
 
 
 ---
-#### WechatDatacubeService
+##### WechatDatacubeService
 
 方法|传入参数|参数描述|方法描述
 ---|---|---|---

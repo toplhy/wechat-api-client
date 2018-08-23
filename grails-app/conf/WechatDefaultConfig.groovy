@@ -4,8 +4,6 @@ wechat {
     token = ''
     encodingType='MINGWEN' //明文模式(MINGWEN)、兼容模式(JIANRONG)、密文模式(MIWEN)
     encodingAESKey = ''
-    domain = ''
-    openId = ''
 
     // urls
     // ###=appId   ***=secret   +++=access_token   ---=code/refresh_token/lang/type    >>>=openid
